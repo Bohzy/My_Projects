@@ -11,6 +11,7 @@
       background-color: #4a9f45;
       color: #f3f3f3;
     }
+
     .container {
       background: rgb(56, 56, 56);
       padding: 20px;
@@ -18,6 +19,7 @@
       max-width: 800px;
       margin: auto;
     }
+
     video {
       max-width: 100%;
       height: auto;
@@ -25,12 +27,68 @@
       border-radius: 10px;
       margin-top: 20px;
     }
+
     h1, h2, h3 {
       color: #f3f3f3;
     }
+
     ul {
       text-align: left;
       margin-left: 20px;
+    }
+
+    /* Image slider styles */
+    .slider {
+      position: relative;
+      max-width: 100%;
+      margin: 20px auto;
+    }
+
+    .slides input {
+      display: none;
+    }
+
+    .slide {
+      display: none;
+      text-align: center;
+    }
+
+    .slides input:checked + .slide {
+      display: block;
+    }
+
+    .slide img {
+      width: 100%;
+      border-radius: 10px;
+      border: 2px solid #f3f3f3;
+      margin-bottom: 10px;
+    }
+
+    .slide-caption {
+      font-size: 16px;
+      color: #ddd;
+      background-color: rgba(0, 0, 0, 0.4);
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .slider-buttons {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .slider-buttons label {
+      cursor: pointer;
+      padding: 6px 12px;
+      background: #eee;
+      color: #333;
+      border-radius: 5px;
+      margin: 0 5px;
+      font-weight: bold;
+    }
+
+    .slider-buttons label:hover {
+      background: #ccc;
     }
   </style>
 </head>
@@ -61,18 +119,50 @@
     <h2>My other Animation</h2>
     <p>This one is smoother and more detailed than the amateur ones i made.</p>
     <video controls>
-    <source src="media/2nd-2d-animation.mp4" type="video/mp4" />
-    <p>(2022)</p>
-    Your browser does not support the video tag.
+      <source src="media/2nd-2d-animation.mp4" type="video/mp4" />
+      <p>(2022)</p>
+      Your browser does not support the video tag.
     </video>
 
     <h2>Stop-Motion</h2>
     <p>Stop-motion was the best support for my creativity, it was fun, easy and formative for me because i use photography edits and drawings at the same time.</p>
     <video controls>
-    <source src="media/stop-motion.mp4" type="video/mp4" />
-    <p>(2021)</p>
-    Your browser does not support the video tag.
+      <source src="media/stop-motion.mp4" type="video/mp4" />
+      <p>(2021)</p>
+      Your browser does not support the video tag.
     </video>
+
+    <h2>SolidWorks Projects</h2>
+    <p>Here are a couple of my SolidWorks designs. Hover over each to learn more.</p>
+
+    <div class="slider">
+      <div class="slides">
+        <input type="radio" name="slider" id="slide1" checked>
+        <div class="slide">
+          <img src="media/solid1.png" alt="SolidWorks Project 1">
+          <div class="slide-caption">This is my first big project, I just did this to test my skills if I can do it :D.</div>
+        </div>
+
+        <input type="radio" name="slider" id="slide2">
+        <div class="slide">
+          <img src="media/solid2.png" alt="SolidWorks Project 2">
+          <div class="slide-caption">This one was for a Mars Rover project that I participated in, I used Mold Technique for this project and 3d printed for testing.</div>
+        </div>
+      </div>
+
+        <input type="radio" name="slider" id="slide3">
+        <div class="slide">
+          <img src="media/solid3.png" alt="SolidWorks Project 3">
+          <div class="slide-caption">I did this for my uncles request, he asked for a thing to wrap his curtains rope for it to not fly when windy.</div>
+        </div>
+      </div>
+
+      <div class="slider-buttons">
+        <label for="slide1">1</label>
+        <label for="slide2">2</label>
+        <label for="slide3">3</label>
+      </div>
+    </div>
 
     <p>Thanks for visiting!</p>
   </div>
