@@ -37,6 +37,21 @@
       margin-left: 20px;
     }
 
+    a.download-btn {
+      display: inline-block;
+      padding: 10px 15px;
+      background-color: #fff;
+      color: #333;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    a.download-btn:hover {
+      background-color: #ccc;
+    }
+
     /* Image slider styles */
     .slider {
       position: relative;
@@ -164,12 +179,20 @@
           <div class="slide-caption">This is a short animation I rendered in SolidWorks showing a moving part I modeled as part of my animatronic face project.</div>
         </div>
 
-        <input type="radio" name="slider" id="slide5" checked>
+        <input type="radio" name="slider" id="slide5">
         <div class="slide">
           <img src="media/solid5.png" alt="SolidWorks Project 5">
-          <div class="slide-caption">There are many more projects I've worked on, but I've selected a few that best represent my skills and creativity. For your convenience, I've tried to compiled screenshots of the full collection in a single photo.(You can download the full files properly from my GitHub in media)</div>
+          <div class="slide-caption">
+            There are many more projects I've worked on, but I've selected a few that best represent my skills and creativity.
+            For your convenience, I compiled screenshots of the full collection into a single .RAR file.
+            <br><br>
+            <a class="download-btn" href="https://bohzy.github.io/solidworksprojects/SolidProjects.rar" download>
+              📦 Download SolidWorks Collection (.RAR)
+            </a>
+            <br><small>(If clicking doesn't work, you can also right-click and choose "Save link as")</small>
         </div>
       </div>
+
 
       <div class="slider-buttons">
         <label for="slide1">1</label>
