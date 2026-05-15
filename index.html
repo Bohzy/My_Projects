@@ -3,396 +3,716 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Berkay Cinar | Project Portfolio</title>
+  <title>Berkay Çınar | Project Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-  /* font */
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+    :root {
+      --bg: #0d0d12;
+      --surface: #13131a;
+      --card: #1a1a25;
+      --border: rgba(255,255,255,0.08);
+      --text: #e8e8f0;
+      --muted: #888899;
+      --accent1: #ff6b35;
+      --accent2: #00d4aa;
+      --accent3: #7c5cfc;
+      --accent4: #ffd166;
+      --accent5: #ef476f;
+    }
 
-  body {
-    font-family: 'Poppins', sans-serif;
-    padding: 20px;
-    margin: 0;
-    color: #f3f3f3;
-    min-height: 100vh;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* circle pattern */
-    background-color: #1d976c;
-    background-image: radial-gradient(rgba(255,255,255,0.15) 4px, transparent 4px);
-    background-size: 40px 40px; /* spacing between dots */
-  }
+    html { scroll-behavior: smooth; }
 
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
 
-  /* Main container */
-  .container {
-    background: rgba(0,0,0,0.75);
-    padding: 25px;
-    border-radius: 15px;
-    max-width: 900px;
-    margin: 40px auto;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-  }
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
 
-  /* Headings */
-  h1, h2, h3 {
-    color: #fff;
-    border-left: 5px solid #ffcc00;
-    padding-left: 10px;
-    margin-top: 30px;
-  }
+    /* ── ANIMATED BG BLOBS ── */
+    .blobs {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+    }
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.18;
+      animation: blobMove 18s ease-in-out infinite alternate;
+    }
+    .blob:nth-child(1) { width: 600px; height: 600px; background: var(--accent3); top: -200px; left: -100px; animation-duration: 20s; }
+    .blob:nth-child(2) { width: 500px; height: 500px; background: var(--accent2); bottom: -150px; right: -100px; animation-duration: 25s; animation-delay: -5s; }
+    .blob:nth-child(3) { width: 400px; height: 400px; background: var(--accent1); top: 40%; left: 50%; animation-duration: 22s; animation-delay: -10s; }
+    @keyframes blobMove {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(60px, 40px) scale(1.1); }
+    }
 
-  /* SLIDER FIX */
-  .slides input {
-    display: none;
-  }
-  .slide {
-    display: none;
-    text-align: center;
-  }
-  .slides input:checked + .slide {
-    display: block;
-  }
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 40px;
+      background: rgba(13,13,18,0.75);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.2rem;
+      background: linear-gradient(135deg, var(--accent1), var(--accent4));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 500;
+      transition: color 0.2s;
+      letter-spacing: 0.03em;
+    }
+    .nav-links a:hover { color: var(--text); }
 
-  /* Keep slides neat */
-  .slide img, .slide video {
-    max-width: 100%;
-    height: auto;
-    border-radius: 12px;
-    border: 3px solid #fff;
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
-  .slide img:hover, .slide video:hover {
-    transform: scale(1.02);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-  }
+    /* ── HERO ── */
+    .hero {
+      position: relative; z-index: 1;
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+    }
+    .hero-tag {
+      display: inline-block;
+      padding: 6px 16px;
+      border: 1px solid var(--accent2);
+      border-radius: 100px;
+      color: var(--accent2);
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      animation: fadeUp 0.6s ease both;
+    }
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.8rem, 8vw, 6rem);
+      font-weight: 800;
+      line-height: 1.05;
+      margin-bottom: 24px;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--accent1) 0%, var(--accent4) 50%, var(--accent2) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      color: var(--muted);
+      font-size: 1.1rem;
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 40px;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+    .hero-links {
+      display: flex; gap: 14px; flex-wrap: wrap; justify-content: center;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+    .hero-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 22px;
+      border-radius: 100px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.25s;
+    }
+    .hero-link.primary {
+      background: var(--accent1);
+      color: #fff;
+    }
+    .hero-link.primary:hover { background: #ff8555; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255,107,53,0.4); }
+    .hero-link.ghost {
+      border: 1px solid var(--border);
+      color: var(--text);
+      background: var(--card);
+    }
+    .hero-link.ghost:hover { border-color: var(--accent2); color: var(--accent2); transform: translateY(-2px); }
 
-  /* button upgrade */
-  a.download-btn {
-    display: inline-block;
-    padding: 12px 20px;
-    background-color: #ffcc00;
-    color: #222;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: background 0.3s;
-  }
-  a.download-btn:hover {
-    background-color: #ffaa00;
-  }
+    .scroll-hint {
+      position: absolute; bottom: 36px;
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: var(--muted); font-size: 0.75rem; letter-spacing: 0.1em;
+      animation: fadeUp 0.6s 0.5s ease both;
+    }
+    .scroll-hint span {
+      display: block; width: 1px; height: 50px;
+      background: linear-gradient(to bottom, var(--muted), transparent);
+      animation: scrollPulse 1.8s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.1); }
+    }
 
-  /* Slider buttons */
-  .slider-buttons {
-    text-align: center;
-    margin-top: 10px;
-  }
-  .slider-buttons label {
-    cursor: pointer;
-    padding: 8px 14px;
-    background: #444;
-    color: #fff;
-    border-radius: 6px;
-    margin: 0 4px;
-    font-weight: bold;
-    transition: background 0.3s;
-  }
-  .slider-buttons label:hover {
-    background: #ffcc00;
-    color: #222;
-  }
+    /* ── TECH PILLS ── */
+    .tech-section {
+      position: relative; z-index: 1;
+      padding: 60px 40px;
+      text-align: center;
+    }
+    .tech-grid {
+      display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;
+      max-width: 800px; margin: 0 auto;
+    }
+    .tech-pill {
+      padding: 10px 20px;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      border: 1px solid;
+      transition: all 0.2s;
+      cursor: default;
+    }
+    .tech-pill:hover { transform: translateY(-3px) scale(1.04); }
+    .tech-pill:nth-child(1) { background: rgba(255,107,53,0.1); border-color: rgba(255,107,53,0.4); color: var(--accent1); }
+    .tech-pill:nth-child(2) { background: rgba(0,212,170,0.1); border-color: rgba(0,212,170,0.4); color: var(--accent2); }
+    .tech-pill:nth-child(3) { background: rgba(124,92,252,0.1); border-color: rgba(124,92,252,0.4); color: var(--accent3); }
+    .tech-pill:nth-child(4) { background: rgba(255,209,102,0.1); border-color: rgba(255,209,102,0.4); color: var(--accent4); }
+    .tech-pill:nth-child(5) { background: rgba(239,71,111,0.1); border-color: rgba(239,71,111,0.4); color: var(--accent5); }
+    .tech-pill:nth-child(6) { background: rgba(255,107,53,0.1); border-color: rgba(255,107,53,0.4); color: var(--accent1); }
+    .tech-pill:nth-child(7) { background: rgba(0,212,170,0.1); border-color: rgba(0,212,170,0.4); color: var(--accent2); }
 
-  /* Captions */
-  .slide-caption {
-    font-size: 15px;
-    background: rgba(255,255,255,0.1);
-    padding: 10px;
-    border-radius: 6px;
-    backdrop-filter: blur(4px);
-    margin-top: 10px;
-  }
+    /* ── SECTION WRAPPER ── */
+    .section {
+      position: relative; z-index: 1;
+      padding: 80px 24px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .section-header {
+      margin-bottom: 48px;
+    }
+    .section-label {
+      display: inline-block;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 10px;
+      font-weight: 500;
+    }
+    .section-header h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      color: #fff;
+    }
+    .section-header p {
+      color: var(--muted);
+      margin-top: 10px;
+      font-size: 1rem;
+      line-height: 1.6;
+      max-width: 600px;
+    }
+    /* accent color per section */
+    .section.solidworks .section-label { color: var(--accent1); }
+    .section.arduino .section-label { color: var(--accent2); }
+    .section.blender .section-label { color: var(--accent3); }
+    .section.unity .section-label { color: var(--accent4); }
+    .section.animations .section-label { color: var(--accent5); }
+    .section.drawings .section-label { color: var(--accent1); }
 
+    /* ── SLIDER ── */
+    .slider-wrap { position: relative; }
+    .slides input[type="radio"] { display: none; }
+    .slide { display: none; }
+    .slides input:checked + .slide { display: block; }
+
+    .slide-media {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--card);
+    }
+    .slide-media img,
+    .slide-media video {
+      width: 100%;
+      max-height: 480px;
+      object-fit: contain;
+      display: block;
+      background: #000;
+    }
+
+    .slide-caption {
+      padding: 18px 20px;
+      background: var(--card);
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    .slider-nav {
+      display: flex; gap: 8px; margin-top: 16px;
+    }
+    .slider-nav label {
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 8px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Syne', sans-serif;
+    }
+    /* active slide dot */
+    .slides input:nth-of-type(1):checked ~ .slider-nav label:nth-of-type(1),
+    .slides input:nth-of-type(2):checked ~ .slider-nav label:nth-of-type(2),
+    .slides input:nth-of-type(3):checked ~ .slider-nav label:nth-of-type(3),
+    .slides input:nth-of-type(4):checked ~ .slider-nav label:nth-of-type(4),
+    .slides input:nth-of-type(5):checked ~ .slider-nav label:nth-of-type(5) {
+      /* can't do this with pure CSS without JS; handled below */
+    }
+    .slider-nav label:hover { border-color: var(--accent2); color: var(--accent2); }
+
+    /* JS-driven active class */
+    .slider-nav label.active {
+      background: var(--accent2);
+      border-color: var(--accent2);
+      color: #000;
+    }
+    .section.solidworks .slider-nav label.active { background: var(--accent1); border-color: var(--accent1); }
+    .section.arduino .slider-nav label.active { background: var(--accent2); border-color: var(--accent2); }
+    .section.blender .slider-nav label.active { background: var(--accent3); border-color: var(--accent3); color: #fff; }
+    .section.unity .slider-nav label.active { background: var(--accent4); border-color: var(--accent4); color: #000; }
+    .section.animations .slider-nav label.active { background: var(--accent5); border-color: var(--accent5); }
+    .section.drawings .slider-nav label.active { background: var(--accent1); border-color: var(--accent1); }
+
+    /* ── DIVIDER ── */
+    .divider {
+      position: relative; z-index: 1;
+      max-width: 960px; margin: 0 auto 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--border), transparent);
+    }
+
+    /* ── DOWNLOAD BTN ── */
+    a.download-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      margin-top: 14px;
+      padding: 12px 22px;
+      background: var(--accent1);
+      color: #fff;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.25s;
+    }
+    a.download-btn:hover { background: #ff8555; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,107,53,0.4); }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative; z-index: 1;
+      text-align: center;
+      padding: 60px 24px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+    footer a { color: var(--accent2); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    footer .footer-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    .footer-links { display: flex; gap: 20px; justify-content: center; margin: 16px 0; flex-wrap: wrap; }
+    .footer-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 18px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+    .footer-link:hover { border-color: var(--accent2); color: var(--accent2); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      nav { padding: 14px 20px; }
+      .nav-links { gap: 16px; }
+      .hero h1 { font-size: 2.4rem; }
+      .section { padding: 60px 16px; }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Hi, I'm Berkay — Welcome to my Project exhibition!</h1>
-    <p>This is a site where I'll be showcasing the projects I did.</p>
 
-    <h2>About the Projects</h2>
-    <p>There are a couple of projects from 2D drawings to actual robots that I designed.</p>
-
-    <h3>Technologies Used for The Projects</h3>
-    <ul>
-      <li>3D Design (SolidWorks, Blender, AutoCAD)</li>
-      <li>2D Drawings (Krita)</li>
-      <li>Arduino & Sensors</li>
-      <li>Unity Game Engine</li>
-      <li>2D Animation (Krita, OpenToonz)</li>
-      <li>Stop-motion</li>
-      <li>Video Editing (DaVinci Resolve)</li>
-    </ul>
-
-    <h3>My Links</h3>
-    <ul>
-      <li><a href="https://www.linkedin.com/in/berkay-%C3%A7%C4%B1nar-5b3890273/" target="_blank">LinkedIn</a></li>
-      <li><a href="https://www.instagram.com/strongmoonsycamore/" target="_blank">Instagram</a></li>
-      <li><a href="https://www.youtube.com/@CaptainSymoon" target="_blank">YouTube</a></li>
-    </ul>
-
-
-        <h2>SolidWorks Projects</h2>
-    <p>Here are a couple of my SolidWorks designs. Hover over each to learn more.</p>
-
-    <div class="slider">
-      <div class="slides">
-        <input type="radio" name="slider-solid" id="slide1-solid" checked>
-        <div class="slide">
-          <img src="media/solid1.PNG" alt="SolidWorks Project 1">
-          <div class="slide-caption">This is my first big project, I just did this to test my skills if I can do it :D.</div>
-        </div>
-
-        <input type="radio" name="slider-solid" id="slide2-solid">
-        <div class="slide">
-          <img src="media/solid2.PNG" alt="SolidWorks Project 2">
-          <div class="slide-caption">This one was for a Mars Rover project that I participated in, I used Mold Technique for this project and 3d printed for testing.</div>
-        </div>
-
-        <input type="radio" name="slider-solid" id="slide3-solid">
-        <div class="slide">
-          <img src="media/solid3.PNG" alt="SolidWorks Project 3">
-          <div class="slide-caption">I did this for my uncles request, he asked for a thing to wrap his curtains rope for it to not fly when windy.</div>
-        </div>
-
-        <input type="radio" name="slider-solid" id="slide4-solid">
-        <div class="slide">
-          <video controls>
-          <source src="media/solid4.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-          </video>
-          <div class="slide-caption">This is a short animation I rendered in SolidWorks showing a moving part I modeled as part of my animatronic face project.</div>
-        </div>
-
-        <input type="radio" name="slider-solid" id="slide5-solid">
-        <div class="slide">
-          <img src="media/solid5.png" alt="SolidWorks Project 5">
-          <div class="slide-caption">
-            There are many more projects I've worked on, but I've selected a few that best represent my skills and creativity.
-            For your convenience, I compiled screenshots of the full collection into a single .RAR file.
-            <br><br>
-            <a class="download-btn" href="https://github.com/Bohzy/My_Projects/blob/main/media/SolidProjects.rar" target="_blank">
-             📦 Download SolidWorks Collection (.RAR)
-            </a>
-            <br><small>(Clicking will open the file on GitHub. Click "Download" there.)</small>
-        </div>
-      </div>
-
-
-
-      <div class="slider-buttons">
-        <label for="slide1-solid">1</label>
-        <label for="slide2-solid">2</label>
-        <label for="slide3-solid">3</label>
-        <label for="slide4-solid">4</label>
-        <label for="slide5-solid">5</label>
-      </div>
-    </div>
-
-
-    <h2>Arduino Projects</h2>
-    <p>Working on Arduino projects has significantly increased my awareness and interest in coding, which is why these projects are especially important for me to share with you.</p>
-    
-    <div class="slider">
-      <div class="slides">
-        <input type="radio" name="slider-arduino" id="slide1-arduino" checked>
-        <div class="slide">
-          <img src="media/Arduino1.jpg" alt="Arduino Project 1">
-          <div class="slide-caption">My first Robot that i build, a sumo robot that i made using C coding, Arduino and sensors.</div>
-        </div>
-
-        <input type="radio" name="slider-arduino" id="slide2-arduino">
-        <div class="slide">
-          <img src="media/Arduino2.jpg" alt="Arduino Project 2">
-          <div class="slide-caption">side view. (His name is Gojo) :D</div>
-        </div>
-
-        <input type="radio" name="slider-arduino" id="slide3-arduino">
-        <div class="slide">
-          <video controls>
-          <source src="media/Arduino3.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-          </video>
-          <div class="slide-caption">This is the footage of the working sumo robot that i build. (winning one is mine :P)</div>
-        </div>
-      </div>
-
-
-  
-      <div class="slider-buttons">
-        <label for="slide1-arduino">1</label>
-        <label for="slide2-arduino">2</label>
-        <label for="slide3-arduino">3</label>
-      </div>
-    </div>
-
-    <h2>Blender Projects</h2>
-    <p>These are my Blender projects, created for games, robotics, and freelance work.</p>
-
-    <div class="slider">
-      <div class="slides">
-        <input type="radio" name="slider-blender" id="slide1-blender" checked>
-        <div class="slide">
-          <video controls>
-          <source src="media/Blender1.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-          </video>
-          <div class="slide-caption">I created this spinner project for a client who requested a sleek, animated design. Originally, it included detailed reflections, but due to my computer's hardware limitations, I wasn't able to render that version. Still, I'm proud of how it turned out and happy to share it here.</div>
-        </div>
-
-        <input type="radio" name="slider-blender" id="slide2-blender">
-        <div class="slide">
-          <video controls>
-          <source src="media/Blender2.mkv" type="video/mp4">
-          Your browser does not support the video tag.
-          </video>
-          <div class="slide-caption">This project was also for a client. They asked if I could complete it by midnight and with only four hours left on the clock, it turned into a real speedrun! It was a school-related design, and even with the tight deadline, I managed to deliver on time.</div>
-        </div>
-
-        <input type="radio" name="slider-blender" id="slide3-blender">
-        <div class="slide">
-          <img src="media/Blender3.jpg" alt="Blender Project 3">
-          <div class="slide-caption">Unfortunately, I lost many of my older projects in a virus attack, including this one which had a working video player in the TV I was quite proud of. Luckily, I found this photo in my phone gallery and wanted to include it here as a small memory.</div>
-        </div>
-      </div>
-
-      <div class="slider-buttons">
-        <label for="slide1-blender">1</label>
-        <label for="slide2-blender">2</label>
-        <label for="slide3-blender">3</label>
-      </div>
-     
-      
-    <h2>Unity Projects</h2>
-    <p>My first interaction with coding was through Unity, which makes these projects especially meaningful to me. I usually build them as a hobby whenever I dream up a game or a new idea pops into my head, I try to bring it to life here and sometimes in GameJams XD.</p>
-
-    <div class="slider">
-      <div class="slides">
-        <input type="radio" name="slider-unity" id="slide1-unity" checked>
-        <div class="slide">
-          <video controls>
-          <source src="media/Unity1.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-          </video>
-          <div class="slide-caption">This is my first Game Jam project, created during a 2-day DOGE Game Jam. Everything you see in this clip is my contribution to the game. The concept is simple: you must transport an ill patient to the hospital within a limited time. (The timer isn't visible in this clip, but it works in the actual game!)</div>
-        </div>
-
-        <input type="radio" name="slider-unity" id="slide2-unity">
-        <div class="slide">
-          <video controls>
-          <source src="media/Unity2.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-          </video>
-          <div class="slide-caption">I also started an Avatar(the last airbender) inspired online fighting game, beginning with earthbending. The mechanics worked well, but I paused it due to my short free times.But Eventually whenever i find a good free time to spend, I plan to expand it to all four elements.</div>
-        </div>
-
-        <input type="radio" name="slider-unity" id="slide3-unity">
-        <div class="slide">
-          <video controls>
-          <source src="media/Unity3.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-          </video>
-          <div class="slide-caption">The 2D parkour game you're seeing now is the first 2D platformer I ever made. I had so many ideas in my mind but I wasn't sure if I could pull them off, so I started simple; basic movement, mechanics and a small parkour map to build from.</div>
-        </div>
-
-        <input type="radio" name="slider-unity" id="slide4-unity">
-        <div class="slide">
-          <video controls>
-          <source src="media/Unity4.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-          </video>
-          <div class="slide-caption">This was another project I started with an idea in mind, but before jumping into the main concept, I wanted to get the movement system right. I pieced it together by mixing some borrowed( ;D ) code, my own coding skills, and tips from diffrent youtube tutorials. And if you are wondering why those 4 clips are a bit random from each other because I had 3 finished games other than these but as I said I lost them files for three of them in the PC reset but keep finding some pieces of them</div>
-        </div>
-
-      <div class="slider-buttons">
-        <label for="slide1-unity">1</label>
-        <label for="slide2-unity">2</label>
-        <label for="slide3-unity">3</label>
-        <label for="slide4-unity">4</label>
-      </div>
-
-
-    <h2>My Animations</h2>
-    <p>Animations are one of the biggest sparks of my creativity.</p>
-
-    <div class="slider">
-      <div class="slides">
-        <input type="radio" name="slider-animation" id="slide1-animation" checked>
-        <div class="slide">
-          <video controls>
-          <source src="media/2nd-2d-animation.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-          </video>
-          <div class="slide-caption">I put this slide first because this video got around 2,000 views on YouTube and i am proud of it, not because of the details of it but the funny short story it is telling.</div>
-        </div>
-
-        <input type="radio" name="slider-animation" id="slide2-animation">
-        <div class="slide">
-          <video controls>
-          <source src="media/Animation1.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-          </video>
-          <div class="slide-caption">This unfinished project is what made me realize that creating animations takes patience and time to get everything just right.</div>
-        </div>
-
-        <input type="radio" name="slider-animation" id="slide3-animation">
-        <div class="slide">
-          <video controls>
-          <source src="media/2d-animation.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-          </video>
-          <div class="slide-caption">This one is again from my YouTube channel, you can find my old and new stuff from there too(CaptainSymoon).</div>
-        </div>
-
-      <div class="slider-buttons">
-        <label for="slide1-animation">1</label>
-        <label for="slide2-animation">2</label>
-        <label for="slide3-animation">3</label>
-      </div>
-
-
-    <h2>Drawings</h2>
-    <p>And at last, here are my precious drawings! :D</p>
-
-    <div class="slider">
-      <div class="slides">
-        <input type="radio" name="slider-drawing" id="slide1-drawing" checked>
-        <div class="slide">
-          <img src="media/Drawing1.jpeg" alt="Drawing Project 1">
-          <div class="slide-caption">This fan art was my first attempt at digital drawing, I tested it with color theory.</div>
-        </div>
-
-        <input type="radio" name="slider-drawing" id="slide2-drawing">
-        <div class="slide">
-          <img src="media/Drawing2.jpg" alt="Drawing Project 2">
-          <div class="slide-caption">And this space ship is a drawing I made for my uncle when I was 12.</div>
-        </div>
-
-        <input type="radio" name="slider-drawing" id="slide3-drawing">
-        <div class="slide">
-          <img src="media/Drawing3.png" alt="Drawing Project 3">
-          <div class="slide-caption">Here's the last photo from my exhibition! I wanted to wrap things up by sharing my Instagram, where you can see more drawings like this (strongmoonsycamore).</div>
-        </div>
-      </div>
-
-      <div class="slider-buttons">
-        <label for="slide1-drawing">1</label>
-        <label for="slide2-drawing">2</label>
-        <label for="slide3-drawing">3</label>
-      </div>
-
-
-    <p>As much as I'd love to share more, I didn't want to take up too much of your time showing everything I can do. If you've made it this far, thanks so much for checking out my portfolio! For more updates, feel free to follow me on Instagram or YouTube. :D</p>
-
-
-    <p>Thanks for visiting!</p>
+  <!-- Background blobs -->
+  <div class="blobs">
+    <div class="blob"></div>
+    <div class="blob"></div>
+    <div class="blob"></div>
   </div>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="nav-logo">Berkay Çınar</div>
+    <ul class="nav-links">
+      <li><a href="#solidworks">SolidWorks</a></li>
+      <li><a href="#arduino">Arduino</a></li>
+      <li><a href="#blender">Blender</a></li>
+      <li><a href="#unity">Unity</a></li>
+      <li><a href="#animations">Animations</a></li>
+      <li><a href="#drawings">Drawings</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-tag">Open for Collaboration</div>
+    <h1>Hi, I'm <span>Berkay</span> —<br>Welcome to my Exhibition</h1>
+    <p>From 3D designs and robots to games, animations and drawings — this is where I show what I've been building.</p>
+    <div class="hero-links">
+      <a href="https://www.linkedin.com/in/berkay-%C3%A7%C4%B1nar-5b3890273/" target="_blank" class="hero-link primary">LinkedIn</a>
+      <a href="https://www.youtube.com/@CaptainSymoon" target="_blank" class="hero-link ghost">▶ YouTube</a>
+      <a href="https://www.instagram.com/strongmoonsycamore/" target="_blank" class="hero-link ghost">Instagram</a>
+    </div>
+    <div class="scroll-hint">SCROLL<span></span></div>
+  </section>
+
+  <!-- TECH PILLS -->
+  <div class="tech-section reveal">
+    <div class="tech-grid">
+      <div class="tech-pill">SolidWorks</div>
+      <div class="tech-pill">Blender</div>
+      <div class="tech-pill">AutoCAD</div>
+      <div class="tech-pill">Arduino / C</div>
+      <div class="tech-pill">Unity</div>
+      <div class="tech-pill">Krita · OpenToonz</div>
+      <div class="tech-pill">DaVinci Resolve</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SOLIDWORKS -->
+  <section class="section solidworks reveal" id="solidworks">
+    <div class="section-header">
+      <span class="section-label">3D CAD</span>
+      <h2>SolidWorks Projects</h2>
+      <p>A handful of designs ranging from personal challenges to Mars Rover parts, all modeled and rendered in SolidWorks.</p>
+    </div>
+    <div class="slider-wrap">
+      <div class="slides" id="solid-slides">
+        <input type="radio" name="slider-solid" id="s1" checked>
+        <div class="slide">
+          <div class="slide-media"><img src="media/solid1.PNG" alt="SolidWorks Project 1"></div>
+          <div class="slide-caption">My first big project — built to test my own limits. Spoiler: I surprised myself.</div>
+        </div>
+        <input type="radio" name="slider-solid" id="s2">
+        <div class="slide">
+          <div class="slide-media"><img src="media/solid2.PNG" alt="SolidWorks Project 2"></div>
+          <div class="slide-caption">Mars Rover component modeled using the Mold Technique, then 3D printed for physical testing.</div>
+        </div>
+        <input type="radio" name="slider-solid" id="s3">
+        <div class="slide">
+          <div class="slide-media"><img src="media/solid3.PNG" alt="SolidWorks Project 3"></div>
+          <div class="slide-caption">A custom curtain-rope holder designed for my uncle — practical design with a real-world use case.</div>
+        </div>
+        <input type="radio" name="slider-solid" id="s4">
+        <div class="slide">
+          <div class="slide-media"><video controls><source src="media/solid4.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+          <div class="slide-caption">A SolidWorks render animation showing a moving part from my animatronic face project.</div>
+        </div>
+        <input type="radio" name="slider-solid" id="s5">
+        <div class="slide">
+          <div class="slide-media"><img src="media/solid5.png" alt="SolidWorks Collection"></div>
+          <div class="slide-caption">
+            There's a lot more. I compiled the full collection into a single archive for you to browse.<br><br>
+            <a class="download-btn" href="https://github.com/Bohzy/My_Projects/blob/main/media/SolidProjects.rar" target="_blank">📦 Download Full Collection (.RAR)</a><br>
+            <small style="color:var(--muted);font-size:0.8rem;">Opens on GitHub — click "Download" there.</small>
+          </div>
+        </div>
+        <div class="slider-nav">
+          <label for="s1">1</label>
+          <label for="s2">2</label>
+          <label for="s3">3</label>
+          <label for="s4">4</label>
+          <label for="s5">5</label>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ARDUINO -->
+  <section class="section arduino reveal" id="arduino">
+    <div class="section-header">
+      <span class="section-label">Robotics</span>
+      <h2>Arduino Projects</h2>
+      <p>These projects changed everything for me — working with real hardware sparked my love for coding.</p>
+    </div>
+    <div class="slider-wrap">
+      <div class="slides" id="arduino-slides">
+        <input type="radio" name="slider-arduino" id="a1" checked>
+        <div class="slide">
+          <div class="slide-media"><img src="media/Arduino1.jpg" alt="Arduino Robot 1"></div>
+          <div class="slide-caption">My first robot: a sumo bot built with C, Arduino, and a stack of sensors. Front view.</div>
+        </div>
+        <input type="radio" name="slider-arduino" id="a2">
+        <div class="slide">
+          <div class="slide-media"><img src="media/Arduino2.jpg" alt="Arduino Robot 2"></div>
+          <div class="slide-caption">Side view. His name is Gojo. 😄</div>
+        </div>
+        <input type="radio" name="slider-arduino" id="a3">
+        <div class="slide">
+          <div class="slide-media"><video controls><source src="media/Arduino3.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+          <div class="slide-caption">Footage of Gojo in action at a sumo competition. Spoiler: the winning one is mine. 😏</div>
+        </div>
+        <div class="slider-nav">
+          <label for="a1">1</label>
+          <label for="a2">2</label>
+          <label for="a3">3</label>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- BLENDER -->
+  <section class="section blender reveal" id="blender">
+    <div class="section-header">
+      <span class="section-label">3D Art</span>
+      <h2>Blender Projects</h2>
+      <p>Games, freelance commissions, and personal experiments — modeled, rigged, and rendered in Blender.</p>
+    </div>
+    <div class="slider-wrap">
+      <div class="slides" id="blender-slides">
+        <input type="radio" name="slider-blender" id="b1" checked>
+        <div class="slide">
+          <div class="slide-media"><video controls><source src="media/Blender1.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+          <div class="slide-caption">A client-commissioned spinner animation. Reflections were planned but my hardware had other ideas. Still proud of it.</div>
+        </div>
+        <input type="radio" name="slider-blender" id="b2">
+        <div class="slide">
+          <div class="slide-media"><video controls><source src="media/Blender2.mkv" type="video/mp4">Your browser does not support the video tag.</video></div>
+          <div class="slide-caption">Another client project — delivered by midnight with only 4 hours on the clock. A real speedrun moment.</div>
+        </div>
+        <input type="radio" name="slider-blender" id="b3">
+        <div class="slide">
+          <div class="slide-media"><img src="media/Blender3.jpg" alt="Blender Project 3"></div>
+          <div class="slide-caption">I lost this project in a virus attack, but luckily found this photo. It had a working video player inside the TV — I was really proud of that.</div>
+        </div>
+        <div class="slider-nav">
+          <label for="b1">1</label>
+          <label for="b2">2</label>
+          <label for="b3">3</label>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- UNITY -->
+  <section class="section unity reveal" id="unity">
+    <div class="section-header">
+      <span class="section-label">Game Dev</span>
+      <h2>Unity Projects</h2>
+      <p>My first coding playground. I build games as a hobby — sometimes from dreams, sometimes from game jams.</p>
+    </div>
+    <div class="slider-wrap">
+      <div class="slides" id="unity-slides">
+        <input type="radio" name="slider-unity" id="u1" checked>
+        <div class="slide">
+          <div class="slide-media"><video controls><source src="media/Unity1.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+          <div class="slide-caption">My first Game Jam entry — a 2-day DOGE Game Jam. Transport an ill patient to hospital before time runs out. Everything you see was made by me.</div>
+        </div>
+        <input type="radio" name="slider-unity" id="u2">
+        <div class="slide">
+          <div class="slide-media"><video controls><source src="media/Unity2.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+          <div class="slide-caption">An Avatar: The Last Airbender–inspired online fighting game starting with earthbending. Paused for now, but I plan to add all four elements eventually.</div>
+        </div>
+        <input type="radio" name="slider-unity" id="u3">
+        <div class="slide">
+          <div class="slide-media"><video controls><source src="media/Unity3.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+          <div class="slide-caption">My very first 2D platformer. Started simple — basic movement, mechanics, and a small parkour map — to build confidence before going bigger.</div>
+        </div>
+        <input type="radio" name="slider-unity" id="u4">
+        <div class="slide">
+          <div class="slide-media"><video controls><source src="media/Unity4.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+          <div class="slide-caption">A movement system experiment — mixed tutorials, borrowed code, and my own logic. Had 3 finished games too, but lost the files in a PC reset. Still finding pieces.</div>
+        </div>
+        <div class="slider-nav">
+          <label for="u1">1</label>
+          <label for="u2">2</label>
+          <label for="u3">3</label>
+          <label for="u4">4</label>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ANIMATIONS -->
+  <section class="section animations reveal" id="animations">
+    <div class="section-header">
+      <span class="section-label">Motion</span>
+      <h2>My Animations</h2>
+      <p>Animation is where my creativity catches fire. Every frame takes patience — and I've learned to love that.</p>
+    </div>
+    <div class="slider-wrap">
+      <div class="slides" id="animation-slides">
+        <input type="radio" name="slider-animation" id="an1" checked>
+        <div class="slide">
+          <div class="slide-media"><video controls><source src="media/2nd-2d-animation.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+          <div class="slide-caption">This one hit ~2,000 views on YouTube. Not for the technical polish — but for the funny little story it tells. I'm proud of it.</div>
+        </div>
+        <input type="radio" name="slider-animation" id="an2">
+        <div class="slide">
+          <div class="slide-media"><video controls><source src="media/Animation1.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+          <div class="slide-caption">An unfinished project that taught me the hardest lesson: animation takes time. Real patience. Worth it.</div>
+        </div>
+        <input type="radio" name="slider-animation" id="an3">
+        <div class="slide">
+          <div class="slide-media"><video controls><source src="media/2d-animation.mp4" type="video/mp4">Your browser does not support the video tag.</video></div>
+          <div class="slide-caption">Another one from my YouTube channel (@CaptainSymoon). Old and new stuff lives there too!</div>
+        </div>
+        <div class="slider-nav">
+          <label for="an1">1</label>
+          <label for="an2">2</label>
+          <label for="an3">3</label>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- DRAWINGS -->
+  <section class="section drawings reveal" id="drawings">
+    <div class="section-header">
+      <span class="section-label">2D Art</span>
+      <h2>Drawings</h2>
+      <p>And last but not least — my precious drawings! From digital fan art to pencil sketches. 😄</p>
+    </div>
+    <div class="slider-wrap">
+      <div class="slides" id="drawing-slides">
+        <input type="radio" name="slider-drawing" id="d1" checked>
+        <div class="slide">
+          <div class="slide-media"><img src="media/Drawing1.jpeg" alt="Drawing 1"></div>
+          <div class="slide-caption">My first ever digital drawing. I used it to test color theory — and instantly got hooked.</div>
+        </div>
+        <input type="radio" name="slider-drawing" id="d2">
+        <div class="slide">
+          <div class="slide-media"><img src="media/Drawing2.jpg" alt="Drawing 2"></div>
+          <div class="slide-caption">A spaceship I drew for my uncle when I was 12. Where it all began.</div>
+        </div>
+        <input type="radio" name="slider-drawing" id="d3">
+        <div class="slide">
+          <div class="slide-media"><img src="media/Drawing3.png" alt="Drawing 3"></div>
+          <div class="slide-caption">The closing piece of this exhibition. For more, find me on Instagram: <strong>@strongmoonsycamore</strong>.</div>
+        </div>
+        <div class="slider-nav">
+          <label for="d1">1</label>
+          <label for="d2">2</label>
+          <label for="d3">3</label>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-name">Berkay Çınar</div>
+    <p>Thanks for making it this far — it really means a lot. 🙏</p>
+    <div class="footer-links">
+      <a href="https://www.linkedin.com/in/berkay-%C3%A7%C4%B1nar-5b3890273/" target="_blank" class="footer-link">LinkedIn</a>
+      <a href="https://www.instagram.com/strongmoonsycamore/" target="_blank" class="footer-link">Instagram</a>
+      <a href="https://www.youtube.com/@CaptainSymoon" target="_blank" class="footer-link">YouTube</a>
+    </div>
+    <p style="margin-top:20px;font-size:0.78rem;">Built with ❤️ and a lot of late nights.</p>
+  </footer>
+
+  <script>
+    // ── Scroll reveal ──────────────────────────────
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); }
+      });
+    }, { threshold: 0.08 });
+    reveals.forEach(r => observer.observe(r));
+
+    // ── Active slider button highlight ────────────
+    // For each radio group, sync the nav labels
+    function initSlider(slidesId) {
+      const container = document.getElementById(slidesId);
+      if (!container) return;
+      const radios = container.querySelectorAll('input[type="radio"]');
+      const navLabels = container.querySelectorAll('.slider-nav label');
+
+      function updateActive() {
+        radios.forEach((radio, i) => {
+          if (radio.checked) {
+            navLabels.forEach(l => l.classList.remove('active'));
+            if (navLabels[i]) navLabels[i].classList.add('active');
+          }
+        });
+      }
+
+      radios.forEach(radio => radio.addEventListener('change', updateActive));
+      updateActive(); // set initial
+    }
+
+    ['solid-slides','arduino-slides','blender-slides','unity-slides','animation-slides','drawing-slides']
+      .forEach(initSlider);
+  </script>
 </body>
 </html>
