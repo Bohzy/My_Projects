@@ -10,7 +10,7 @@
       --bg: #0d0d12;
       --surface: #13131a;
       --card: #1a1a25;
-      --border: rgba(255,255,255,0.08);
+      --border: rgba(255, 255, 255, 0.08);
       --text: #e8e8f0;
       --muted: #888899;
       --accent1: #ff6b35;
@@ -21,9 +21,7 @@
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     html { scroll-behavior: smooth; }
-
     body {
       font-family: 'DM Sans', sans-serif;
       background: var(--bg);
@@ -31,7 +29,7 @@
       overflow-x: hidden;
     }
 
-    /* ── NOISE OVERLAY ── */
+    /* NOISE OVERLAY */
     body::before {
       content: '';
       position: fixed; inset: 0;
@@ -41,10 +39,8 @@
       opacity: 0.4;
     }
 
-    /* ── ANIMATED BG BLOBS ── */
-    .blobs {
-      position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
-    }
+    /* ANIMATED BG BLOBS */
+    .blobs { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
     .blob {
       position: absolute;
       border-radius: 50%;
@@ -60,12 +56,12 @@
       to   { transform: translate(60px, 40px) scale(1.1); }
     }
 
-    /* ── NAVBAR ── */
+    /* NAVBAR */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
       padding: 18px 40px;
-      background: rgba(13,13,18,0.75);
+      background: rgba(13, 13, 18, 0.75);
       backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
     }
@@ -89,7 +85,7 @@
     }
     .nav-links a:hover { color: var(--text); }
 
-    /* ── HERO ── */
+    /* HERO */
     .hero {
       position: relative; z-index: 1;
       min-height: 100vh;
@@ -144,16 +140,9 @@
       font-weight: 500;
       transition: all 0.25s;
     }
-    .hero-link.primary {
-      background: var(--accent1);
-      color: #fff;
-    }
+    .hero-link.primary { background: var(--accent1); color: #fff; }
     .hero-link.primary:hover { background: #ff8555; transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255,107,53,0.4); }
-    .hero-link.ghost {
-      border: 1px solid var(--border);
-      color: var(--text);
-      background: var(--card);
-    }
+    .hero-link.ghost { border: 1px solid var(--border); color: var(--text); background: var(--card); }
     .hero-link.ghost:hover { border-color: var(--accent2); color: var(--accent2); transform: translateY(-2px); }
 
     .scroll-hint {
@@ -169,19 +158,12 @@
     }
     @keyframes scrollPulse {
       0%, 100% { opacity: 0.4; transform: scaleY(1); }
-      50% { opacity: 1; transform: scaleY(1.1); }
+      50%       { opacity: 1;   transform: scaleY(1.1); }
     }
 
-    /* ── TECH PILLS ── */
-    .tech-section {
-      position: relative; z-index: 1;
-      padding: 60px 40px;
-      text-align: center;
-    }
-    .tech-grid {
-      display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;
-      max-width: 800px; margin: 0 auto;
-    }
+    /* TECH PILLS */
+    .tech-section { position: relative; z-index: 1; padding: 60px 40px; text-align: center; }
+    .tech-grid { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; max-width: 800px; margin: 0 auto; }
     .tech-pill {
       padding: 10px 20px;
       border-radius: 100px;
@@ -189,27 +171,21 @@
       font-weight: 500;
       border: 1px solid;
       transition: all 0.2s;
-      cursor: default;
+      cursor: pointer;
+      display: inline-block;
     }
     .tech-pill:hover { transform: translateY(-3px) scale(1.04); }
     .tech-pill:nth-child(1) { background: rgba(255,107,53,0.1); border-color: rgba(255,107,53,0.4); color: var(--accent1); }
-    .tech-pill:nth-child(2) { background: rgba(0,212,170,0.1); border-color: rgba(0,212,170,0.4); color: var(--accent2); }
-    .tech-pill:nth-child(3) { background: rgba(124,92,252,0.1); border-color: rgba(124,92,252,0.4); color: var(--accent3); }
-    .tech-pill:nth-child(4) { background: rgba(255,209,102,0.1); border-color: rgba(255,209,102,0.4); color: var(--accent4); }
+    .tech-pill:nth-child(2) { background: rgba(124,92,252,0.1); border-color: rgba(124,92,252,0.4); color: var(--accent3); }
+    .tech-pill:nth-child(3) { background: rgba(255,209,102,0.1); border-color: rgba(255,209,102,0.4); color: var(--accent4); }
+    .tech-pill:nth-child(4) { background: rgba(0,212,170,0.1);  border-color: rgba(0,212,170,0.4);  color: var(--accent2); }
     .tech-pill:nth-child(5) { background: rgba(239,71,111,0.1); border-color: rgba(239,71,111,0.4); color: var(--accent5); }
     .tech-pill:nth-child(6) { background: rgba(255,107,53,0.1); border-color: rgba(255,107,53,0.4); color: var(--accent1); }
-    .tech-pill:nth-child(7) { background: rgba(0,212,170,0.1); border-color: rgba(0,212,170,0.4); color: var(--accent2); }
+    .tech-pill:nth-child(7) { background: rgba(0,212,170,0.1);  border-color: rgba(0,212,170,0.4);  color: var(--accent2); }
 
-    /* ── SECTION WRAPPER ── */
-    .section {
-      position: relative; z-index: 1;
-      padding: 80px 24px;
-      max-width: 960px;
-      margin: 0 auto;
-    }
-    .section-header {
-      margin-bottom: 48px;
-    }
+    /* SECTION WRAPPER */
+    .section { position: relative; z-index: 1; padding: 80px 24px; max-width: 960px; margin: 0 auto; }
+    .section-header { margin-bottom: 48px; }
     .section-label {
       display: inline-block;
       font-size: 0.72rem;
@@ -232,20 +208,12 @@
       line-height: 1.6;
       max-width: 600px;
     }
-    /* accent color per section */
-    .section.solidworks .section-label { color: var(--accent1); }
-    .section.arduino .section-label { color: var(--accent2); }
-    .section.blender .section-label { color: var(--accent3); }
-    .section.unity .section-label { color: var(--accent4); }
-    .section.animations .section-label { color: var(--accent5); }
-    .section.drawings .section-label { color: var(--accent1); }
 
-    /* ── SLIDER ── */
+    /* SLIDER */
     .slider-wrap { position: relative; }
     .slides input[type="radio"] { display: none; }
     .slide { display: none; }
     .slides input:checked + .slide { display: block; }
-
     .slide-media {
       position: relative;
       border-radius: 16px;
@@ -253,15 +221,13 @@
       border: 1px solid var(--border);
       background: var(--card);
     }
-    .slide-media img,
-    .slide-media video {
+    .slide-media img, .slide-media video {
       width: 100%;
       max-height: 480px;
       object-fit: contain;
       display: block;
       background: #000;
     }
-
     .slide-caption {
       padding: 18px 20px;
       background: var(--card);
@@ -270,10 +236,7 @@
       font-size: 0.92rem;
       line-height: 1.6;
     }
-
-    .slider-nav {
-      display: flex; gap: 8px; margin-top: 16px;
-    }
+    .slider-nav { display: flex; gap: 8px; margin-top: 16px; }
     .slider-nav label {
       width: 36px; height: 36px;
       display: flex; align-items: center; justify-content: center;
@@ -287,38 +250,24 @@
       transition: all 0.2s;
       font-family: 'Syne', sans-serif;
     }
-    /* active slide dot */
-    .slides input:nth-of-type(1):checked ~ .slider-nav label:nth-of-type(1),
-    .slides input:nth-of-type(2):checked ~ .slider-nav label:nth-of-type(2),
-    .slides input:nth-of-type(3):checked ~ .slider-nav label:nth-of-type(3),
-    .slides input:nth-of-type(4):checked ~ .slider-nav label:nth-of-type(4),
-    .slides input:nth-of-type(5):checked ~ .slider-nav label:nth-of-type(5) {
-      /* can't do this with pure CSS without JS; handled below */
-    }
     .slider-nav label:hover { border-color: var(--accent2); color: var(--accent2); }
+    .slider-nav label.active { background: var(--accent2); border-color: var(--accent2); color: #000; }
+    .section.solidworks .slider-nav label.active  { background: var(--accent1); border-color: var(--accent1); color: #fff; }
+    .section.arduino    .slider-nav label.active  { background: var(--accent2); border-color: var(--accent2); color: #000; }
+    .section.blender    .slider-nav label.active  { background: var(--accent3); border-color: var(--accent3); color: #fff; }
+    .section.unity      .slider-nav label.active  { background: var(--accent4); border-color: var(--accent4); color: #000; }
+    .section.animations .slider-nav label.active  { background: var(--accent5); border-color: var(--accent5); color: #fff; }
+    .section.drawings   .slider-nav label.active  { background: var(--accent1); border-color: var(--accent1); color: #fff; }
 
-    /* JS-driven active class */
-    .slider-nav label.active {
-      background: var(--accent2);
-      border-color: var(--accent2);
-      color: #000;
-    }
-    .section.solidworks .slider-nav label.active { background: var(--accent1); border-color: var(--accent1); }
-    .section.arduino .slider-nav label.active { background: var(--accent2); border-color: var(--accent2); }
-    .section.blender .slider-nav label.active { background: var(--accent3); border-color: var(--accent3); color: #fff; }
-    .section.unity .slider-nav label.active { background: var(--accent4); border-color: var(--accent4); color: #000; }
-    .section.animations .slider-nav label.active { background: var(--accent5); border-color: var(--accent5); }
-    .section.drawings .slider-nav label.active { background: var(--accent1); border-color: var(--accent1); }
-
-    /* ── DIVIDER ── */
+    /* DIVIDER */
     .divider {
       position: relative; z-index: 1;
-      max-width: 960px; margin: 0 auto 0;
+      max-width: 960px; margin: 0 auto;
       height: 1px;
       background: linear-gradient(to right, transparent, var(--border), transparent);
     }
 
-    /* ── DOWNLOAD BTN ── */
+    /* DOWNLOAD BTN */
     a.download-btn {
       display: inline-flex; align-items: center; gap: 8px;
       margin-top: 14px;
@@ -333,7 +282,7 @@
     }
     a.download-btn:hover { background: #ff8555; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,107,53,0.4); }
 
-    /* ── FOOTER ── */
+    /* FOOTER */
     footer {
       position: relative; z-index: 1;
       text-align: center;
@@ -344,7 +293,7 @@
     }
     footer a { color: var(--accent2); text-decoration: none; }
     footer a:hover { text-decoration: underline; }
-    footer .footer-name {
+    .footer-name {
       font-family: 'Syne', sans-serif;
       font-size: 1.4rem;
       font-weight: 800;
@@ -364,23 +313,16 @@
     }
     .footer-link:hover { border-color: var(--accent2); color: var(--accent2); }
 
-    /* ── ANIMATIONS ── */
+    /* ANIMATIONS */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(24px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
 
-    /* ── RESPONSIVE ── */
-    @media (max-width: 600px) {
+    /* RESPONSIVE */
+    @media(max-width: 600px) {
       nav { padding: 14px 20px; }
       .nav-links { gap: 16px; }
       .hero h1 { font-size: 2.4rem; }
@@ -419,20 +361,21 @@
       <a href="https://www.linkedin.com/in/berkay-%C3%A7%C4%B1nar-5b3890273/" target="_blank" class="hero-link primary">LinkedIn</a>
       <a href="https://www.youtube.com/@CaptainSymoon" target="_blank" class="hero-link ghost">▶ YouTube</a>
       <a href="https://www.instagram.com/strongmoonsycamore/" target="_blank" class="hero-link ghost">Instagram</a>
+      <a href="https://bohzy.itch.io" target="_blank" class="hero-link ghost">🎮 itch.io</a>
     </div>
     <div class="scroll-hint">SCROLL<span></span></div>
   </section>
 
-  <!-- TECH PILLS -->
+  <!-- TECH PILLS — click scrolls to section -->
   <div class="tech-section reveal">
     <div class="tech-grid">
-      <div class="tech-pill">SolidWorks</div>
-      <div class="tech-pill">Blender</div>
-      <div class="tech-pill">AutoCAD</div>
-      <div class="tech-pill">Arduino / C</div>
-      <div class="tech-pill">Unity</div>
-      <div class="tech-pill">Krita · OpenToonz</div>
-      <div class="tech-pill">DaVinci Resolve</div>
+      <div class="tech-pill" data-target="solidworks">SolidWorks</div>
+      <div class="tech-pill" data-target="blender">Blender</div>
+      <div class="tech-pill" data-target="solidworks">AutoCAD</div>
+      <div class="tech-pill" data-target="arduino">Arduino / C</div>
+      <div class="tech-pill" data-target="unity">Unity</div>
+      <div class="tech-pill" data-target="animations">Krita · OpenToonz</div>
+      <div class="tech-pill" data-target="animations">DaVinci Resolve</div>
     </div>
   </div>
 
@@ -675,29 +618,34 @@
     <div class="footer-links">
       <a href="https://www.linkedin.com/in/berkay-%C3%A7%C4%B1nar-5b3890273/" target="_blank" class="footer-link">LinkedIn</a>
       <a href="https://www.instagram.com/strongmoonsycamore/" target="_blank" class="footer-link">Instagram</a>
+      <a href="https://bohzy.itch.io" target="_blank" class="footer-link">🎮 itch.io</a>
       <a href="https://www.youtube.com/@CaptainSymoon" target="_blank" class="footer-link">YouTube</a>
     </div>
     <p style="margin-top:20px;font-size:0.78rem;">Built with ❤️ and a lot of late nights.</p>
   </footer>
 
   <script>
-    // ── Scroll reveal ──────────────────────────────
+    // Tech pill scroll
+    document.querySelectorAll('.tech-pill[data-target]').forEach(pill => {
+      pill.addEventListener('click', () => {
+        const target = document.getElementById(pill.dataset.target);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // Scroll reveal
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('visible'); }
-      });
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
     }, { threshold: 0.08 });
     reveals.forEach(r => observer.observe(r));
 
-    // ── Active slider button highlight ────────────
-    // For each radio group, sync the nav labels
+    // Active slider button highlight
     function initSlider(slidesId) {
       const container = document.getElementById(slidesId);
       if (!container) return;
       const radios = container.querySelectorAll('input[type="radio"]');
       const navLabels = container.querySelectorAll('.slider-nav label');
-
       function updateActive() {
         radios.forEach((radio, i) => {
           if (radio.checked) {
@@ -706,11 +654,9 @@
           }
         });
       }
-
       radios.forEach(radio => radio.addEventListener('change', updateActive));
-      updateActive(); // set initial
+      updateActive();
     }
-
     ['solid-slides','arduino-slides','blender-slides','unity-slides','animation-slides','drawing-slides']
       .forEach(initSlider);
   </script>
